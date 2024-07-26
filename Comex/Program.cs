@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Comex;
 using System.Text.Json;
+using Comex.Models;
+using Comex.Service;
 
 // lstpt = lista de produtos para ser utilizada durante os testes
 var lstpt = new List<Produto>
@@ -30,6 +32,10 @@ var lstpt = new List<Produto>
         Quantidade = 50
     }
 };
+
+Dictionary<int, Menu> opcoes = new();
+
+opcoes.Add(2,new ListarProdutos());
 
 // ltspd = lista de pedidos para ser utilizada durante os testes
 var ltspd = new List<Pedido>();
@@ -74,6 +80,13 @@ async Task Epdm()
     string opcaoEscolhida = Console.ReadLine()!;
     int opcaoEscolhidaNumerica = int.Parse(opcaoEscolhida);
 
+    if (opcoes.ContainsKey(opcaoEscolhidaNumerica)) {
+
+        Menu menu = opcoes[opcaoEscolhidaNumerica];
+        menu.Executar(lstpt);
+        await Epdm();
+    }
+
     switch (opcaoEscolhidaNumerica)
     {
         case 1:
@@ -98,22 +111,6 @@ async Task Epdm()
 
             lstpt.Add(produto);
             Console.WriteLine($"O Produto {produto.Nome} foi registrado com sucesso!");
-            Console.WriteLine("\nDigite uma tecla para voltar ao menu principal");
-            Console.ReadKey();
-            Console.Clear();
-            await Epdm();
-            break;
-        case 2:
-            Console.Clear();
-
-            //ExibirTituloDaOpcao("Exibindo todos os produtos registradoss na nossa aplicação");
-            Console.WriteLine("Exibindo todos os produtos registradoss na nossa aplicação");
-
-            for (int i = 0; i < lstpt.Count; i++)
-            {
-                Console.WriteLine($"Produto: {lstpt[i].Nome}, Preço: {lstpt[i].PrecoUnitario:F2}");
-            }
-
             Console.WriteLine("\nDigite uma tecla para voltar ao menu principal");
             Console.ReadKey();
             Console.Clear();

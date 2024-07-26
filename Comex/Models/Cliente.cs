@@ -1,4 +1,6 @@
-﻿namespace Comex;
+﻿using Comex.Interface;
+
+namespace Comex.Models;
 
 public class Cliente : IIdentificavel
 {

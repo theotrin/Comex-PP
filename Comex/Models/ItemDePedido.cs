@@ -1,4 +1,6 @@
-﻿namespace Comex;
+﻿using Comex.Models;
+
+namespace Comex;
 
 public class ItemDePedido
 {
